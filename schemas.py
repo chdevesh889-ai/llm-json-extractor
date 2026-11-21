@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field, field_validator
+from datetime import datetime
 
 
 class Invoice(BaseModel):
@@ -34,4 +35,23 @@ class Invoice(BaseModel):
     def validate_amounts(cls, value):
         if value is not None and value < 0:
             raise ValueError("Amount cannot be negative.")
+        return value
+
+
+    
+    @field_validator("date")
+    @classmethod
+    def validate_date(cls, value):
+        if value is not None:
+            try:
+                parsed_date = datetime.strptime(value, "%Y-%m-%d")
+
+                if parsed_date.strftime("%Y-%m-%d") != value:
+                    raise ValueError("Date must use YYYY-MM-DD format.")
+
+            except ValueError:
+                raise ValueError(
+                    "Date must be a valid date in YYYY-MM-DD format."
+                )
+
         return value

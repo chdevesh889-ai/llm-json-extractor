@@ -44,7 +44,7 @@ The application uses parameterized prompt templates, Gemini's structured output 
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/chdevesh889-ai/llm-json-extractor.git
 cd llm-json-extractor
 ```
 
@@ -95,11 +95,7 @@ Enter invoice text when prompted.
 ### Example Input
 
 ```text
-Invoice Number: INV-450
-Vendor: Krishna Computers
-Date: 12 August 2026
-Total Amount: 25000
-Tax: 4500
+Invoice Number: INV-450; Vendor: Krishna Computers; Date: 12 August 2026; Total Amount: 25000; Tax: 4500
 ```
 
 ### Example JSON Output

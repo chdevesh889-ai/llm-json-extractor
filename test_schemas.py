@@ -1,3 +1,4 @@
+
 import pytest
 from pydantic import ValidationError
 
@@ -62,3 +63,41 @@ def test_invalid_amount_type_is_rejected():
             total_amount="not a number",
             tax=4500,
         )
+
+
+# New Test 6: Check valid date
+def test_valid_invoice_date():
+    invoice = Invoice(
+        invoice_number="INV-101",
+        vendor="ABC Technologies",
+        date="2026-11-21",
+        total_amount=5000,
+        tax=900,
+    )
+
+    assert invoice.date == "2026-11-21"
+
+
+# New Test 7: Reject invalid calendar date
+def test_invalid_invoice_date():
+    with pytest.raises(ValidationError):
+        Invoice(
+            invoice_number="INV-102",
+            vendor="ABC Technologies",
+            date="2026-02-30",
+            total_amount=5000,
+            tax=900,
+        )
+
+
+# New Test 8: Allow missing date
+def test_missing_invoice_date():
+    invoice = Invoice(
+        invoice_number="INV-103",
+        vendor="ABC Technologies",
+        date=None,
+        total_amount=5000,
+        tax=900,
+    )
+
+    assert invoice.date is None
